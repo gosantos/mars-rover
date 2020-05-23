@@ -16,3 +16,15 @@
   (testing "it should move the rover to bar"
     (is (= "Error. I dont know what is bar." (move (Position. 1 2 "bar")))))
   )
+
+
+(deftest rotate-test
+  (testing "it should rotate the rover to north"
+    (is (= (Position. 1 2 "W") (rotate "L" (Position. 1 2 "N")))))
+  (testing "it should rotate the rover to south"
+    (is (= (Position. 1 2 "E") (rotate "R" (Position. 1 2 "N")))))
+  (testing "it should rotate the rover to east"
+    (is (= (Position. 1 2 "S") (rotate "L" (Position. 1 2 "W")))))
+  (testing "it should rotate the rover to west"
+    (is (= (Position. 1 2 "S") (rotate "R" (Position. 1 2 "E")))))
+  )
