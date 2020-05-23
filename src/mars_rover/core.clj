@@ -23,7 +23,7 @@
                        "S" (Position. (:x position) (- (:y position) 1) (:compass position))
                        "E" (Position. (+ (:x position) 1) (:y position) (:compass position))
                        "W" (Position. (- (:x position) 1) (:y position) (:compass position))
-                       (throw (RuntimeException. (format "Error. I dont know what is %s." (:compass position)))))]
+                       (throw (RuntimeException. (format "Compass is %s invalid." (:compass position)))))]
     (validate-position new-position)))
 
 (def compass-after-rotation
@@ -33,3 +33,10 @@
 (defn rotate [direction position]
   (let [new-compass (get compass-after-rotation (keyword (str direction (:compass position))))]
     (Position. (:x position) (:y position) new-compass)))
+
+(defn move-or-rotate [command position]
+  (case command
+    "M" (move position)
+    "L" (rotate command position)
+    "R" (rotate command position)
+    (throw (RuntimeException. (format "Command %s is invalid." command)))))

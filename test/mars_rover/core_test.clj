@@ -32,3 +32,13 @@
     (is (= (Position. 1 2 "S") (rotate "L" (Position. 1 2 "W")))))
   (testing "it should rotate the rover to west"
     (is (= (Position. 1 2 "S") (rotate "R" (Position. 1 2 "E"))))))
+
+(deftest move-or-rotate-test
+  (testing "it should move"
+    (is (= (Position. 1 3 "N") (move-or-rotate "M" (Position. 1 2 "N")))))
+  (testing "it should rotate left"
+    (is (= (Position. 1 2 "W") (move-or-rotate "L" (Position. 1 2 "N")))))
+  (testing "it should rotate right"
+    (is (= (Position. 1 2 "N") (move-or-rotate "R" (Position. 1 2 "W")))))
+  (testing "it should thrown an exception when the movement is invalid"
+    (is (thrown? RuntimeException (move-or-rotate "F" (Position. 1 2 "E"))))))
