@@ -25,13 +25,13 @@
 
 (deftest rotate-test
   (testing "it should rotate the rover to north"
-    (is (= (Position. 1 2 "W") (rotate "L" (Position. 1 2 "N")))))
+    (is (= (Position. 1 2 "W") (rotate-left (Position. 1 2 "N")))))
   (testing "it should rotate the rover to south"
-    (is (= (Position. 1 2 "E") (rotate "R" (Position. 1 2 "N")))))
+    (is (= (Position. 1 2 "E") (rotate-right (Position. 1 2 "N")))))
   (testing "it should rotate the rover to east"
-    (is (= (Position. 1 2 "S") (rotate "L" (Position. 1 2 "W")))))
+    (is (= (Position. 1 2 "S") (rotate-left (Position. 1 2 "W")))))
   (testing "it should rotate the rover to west"
-    (is (= (Position. 1 2 "S") (rotate "R" (Position. 1 2 "E"))))))
+    (is (= (Position. 1 2 "S") (rotate-right (Position. 1 2 "E"))))))
 
 (deftest move-or-rotate-test
   (testing "it should move"

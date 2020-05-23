@@ -4,7 +4,6 @@
 
 (defrecord Position [x y compass])
 
-
 (defn validate-position [position]
   (let [valid (and
                 (<= (:x position) (:x plateau))
@@ -16,7 +15,6 @@
       position
       (throw (RuntimeException. "You have reach the end of plateau.")))))
 
-
 (defn move [position]
   (let [new-position (case (:compass position)
                        "N" (Position. (:x position) (+ (:y position) 1) (:compass position))
@@ -26,17 +24,17 @@
                        (throw (RuntimeException. (format "Compass is %s invalid." (:compass position)))))]
     (validate-position new-position)))
 
-(def compass-after-rotation
-  {:LN "W" :LS "E" :LE "N" :LW "S"
-   :RN "E" :RS "W" :RE "S" :RW "N"})
+(defn rotate-left [position]
+  (let [new-compass ((keyword (:compass position)) {:N "W" :S "E" :E "N" :W "S"})]
+    (Position. (:x position) (:y position) new-compass)))
 
-(defn rotate [direction position]
-  (let [new-compass (get compass-after-rotation (keyword (str direction (:compass position))))]
+(defn rotate-right [position]
+  (let [new-compass ((keyword (:compass position)) {:N "E" :S "W" :E "S" :W "N"})]
     (Position. (:x position) (:y position) new-compass)))
 
 (defn move-or-rotate [command position]
   (case command
     "M" (move position)
-    "L" (rotate command position)
-    "R" (rotate command position)
+    "L" (rotate-left position)
+    "R" (rotate-right position)
     (throw (RuntimeException. (format "Command %s is invalid." command)))))
