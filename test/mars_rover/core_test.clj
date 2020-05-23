@@ -19,9 +19,7 @@
   (testing "it should move the rover to east"
     (is (= (Position. 2 2 "E") (move (Position. 1 2 "E")))))
   (testing "it should move the rover to west"
-    (is (= (Position. 0 2 "W") (move (Position. 1 2 "W")))))
-  (testing "it should move the rover to bar"
-    (is (thrown? RuntimeException (move (Position. 1 2 "bar"))))))
+    (is (= (Position. 0 2 "W") (move (Position. 1 2 "W"))))))
 
 (deftest rotate-test
   (testing "it should rotate the rover to north"

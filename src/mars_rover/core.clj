@@ -20,8 +20,7 @@
                        "N" (Position. (:x position) (+ (:y position) 1) (:compass position))
                        "S" (Position. (:x position) (- (:y position) 1) (:compass position))
                        "E" (Position. (+ (:x position) 1) (:y position) (:compass position))
-                       "W" (Position. (- (:x position) 1) (:y position) (:compass position))
-                       (throw (RuntimeException. (format "Compass is %s invalid." (:compass position)))))]
+                       "W" (Position. (- (:x position) 1) (:y position) (:compass position)))]
     (validate-position new-position)))
 
 (defn rotate-left [position]
