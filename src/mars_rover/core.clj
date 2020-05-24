@@ -49,11 +49,10 @@
   (let [[x y compass] args]
     (Position. (Integer. x) (Integer. y) compass)))
 
-(defn commands-converter [args] args)
-
-;
-;(defn parse [string] (case
-;                       [x y] (Plateau. x y)
-;                             [x y compass]
-;                             ))
-
+;; external
+(defn parse [line]
+  (cond
+    (re-matches #"^\d \d$" line) (plateau-converter (str/split line #" "))
+    (re-matches #"^\d \d [N|S|E|W]$" line) (position-converter (str/split line #" "))
+    (re-matches #"^[L|R|M]+$" line) (str/split line #"")
+    :else (throw (RuntimeException. (format "Unrecognized expression: %s." line)))))

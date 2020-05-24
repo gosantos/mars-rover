@@ -55,10 +55,12 @@
   (testing "should convert to a position"
     (is (= (Position. 1 2 "N") (position-converter ["1" "2" "N"])))))
 
-;(deftest parser-test
-;  (testing "it should parse the plateu"
-;    (is (= (Plateau. 5 5) (parse "5 5"))))
-;  (testing "it should parse the initial position"
-;    (is (= (Position. 5 1 "E") (rover-service (Position. 3 3 "E") (list "M" "M" "R" "M" "M" "R" "M" "R" "R" "M")))))
-;  (testing "it should parse the commands"
-;    (is (= (Position. 5 1 "E") (rover-service (Position. 3 3 "E") (list "M" "M" "R" "M" "M" "R" "M" "R" "R" "M"))))))
+(deftest parser-test
+  (testing "it should parse a plateau"
+    (is (= (Plateau. 5 5) (parse "5 5"))))
+  (testing "it should parse a position"
+    (is (= (Position. 1 2 "N") (parse "1 2 N"))))
+  (testing "it should parse commands"
+    (is (= ["L" "M" "L" "M"] (parse "LMLM"))))
+  (testing "it should raise an exception when the format is wrong"
+    (is (thrown? RuntimeException (parse "DHUSAHUDSAHUDHUAS")))))
