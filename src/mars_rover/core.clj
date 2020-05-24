@@ -1,8 +1,12 @@
-(ns mars-rover.core)
+(ns mars-rover.core
+  (:require [clojure.string :as str]))
 
+
+;; domain
 (def plateau {:x 5 :y 5})
 
 (defrecord Position [x y compass])
+(defrecord Plateau [x y])
 
 (defn validate-position [position]
   (let [in-plateau (and (<= 0 (:x position) (:x plateau)) (<= 0 (:y position) (:y plateau)))]
@@ -35,3 +39,21 @@
 
 (defn rover-service [position commands]
   (reduce #(move-or-rotate %1 %2) position commands))
+
+; converters
+(defn plateau-converter [args]
+  (let [[x y] args]
+    (Plateau. (Integer. x) (Integer. y))))
+
+(defn position-converter [args]
+  (let [[x y compass] args]
+    (Position. (Integer. x) (Integer. y) compass)))
+
+(defn commands-converter [args] args)
+
+;
+;(defn parse [string] (case
+;                       [x y] (Plateau. x y)
+;                             [x y compass]
+;                             ))
+

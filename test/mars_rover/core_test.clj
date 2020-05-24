@@ -1,7 +1,7 @@
 (ns mars-rover.core-test
   (:require [clojure.test :refer :all]
             [mars-rover.core :refer :all])
-  (:import (mars_rover.core Position)))
+  (:import (mars_rover.core Position Plateau)))
 
 
 (deftest validate-new-position-test
@@ -46,3 +46,19 @@
     (is (= (Position. 1 3 "N") (rover-service (Position. 1 2 "N") (list "L" "M" "L" "M" "L" "M" "L" "M" "M")))))
   (testing "given a list of commands and a initial position it should move the rover the correct position 2"
     (is (= (Position. 5 1 "E") (rover-service (Position. 3 3 "E") (list "M" "M" "R" "M" "M" "R" "M" "R" "R" "M"))))))
+
+(deftest plateau-converter-test
+  (testing "should convert to a plateau"
+    (is (= (Plateau. 5 5) (plateau-converter ["5" "5"])))))
+
+(deftest position-converter-test
+  (testing "should convert to a position"
+    (is (= (Position. 1 2 "N") (position-converter ["1" "2" "N"])))))
+
+;(deftest parser-test
+;  (testing "it should parse the plateu"
+;    (is (= (Plateau. 5 5) (parse "5 5"))))
+;  (testing "it should parse the initial position"
+;    (is (= (Position. 5 1 "E") (rover-service (Position. 3 3 "E") (list "M" "M" "R" "M" "M" "R" "M" "R" "R" "M")))))
+;  (testing "it should parse the commands"
+;    (is (= (Position. 5 1 "E") (rover-service (Position. 3 3 "E") (list "M" "M" "R" "M" "M" "R" "M" "R" "R" "M"))))))
