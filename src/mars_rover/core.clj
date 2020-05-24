@@ -5,13 +5,8 @@
 (defrecord Position [x y compass])
 
 (defn validate-position [position]
-  (let [valid (and
-                (<= (:x position) (:x plateau))
-                (<= (:y position) (:y plateau))
-                (>= (:x position) 0)
-                (>= (:y position) 0)
-                )]
-    (if valid
+  (let [in-plateau (and (<= 0 (:x position) (:x plateau)) (<= 0 (:y position) (:y plateau)))]
+    (if in-plateau
       position
       (throw (RuntimeException. "You have reach the end of plateau.")))))
 
