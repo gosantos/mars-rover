@@ -33,10 +33,16 @@
 
 (deftest move-or-rotate-test
   (testing "it should move"
-    (is (= (Position. 1 3 "N") (move-or-rotate "M" (Position. 1 2 "N")))))
+    (is (= (Position. 1 3 "N") (move-or-rotate (Position. 1 2 "N") "M"))))
   (testing "it should rotate left"
-    (is (= (Position. 1 2 "W") (move-or-rotate "L" (Position. 1 2 "N")))))
+    (is (= (Position. 1 2 "W") (move-or-rotate (Position. 1 2 "N") "L"))))
   (testing "it should rotate right"
-    (is (= (Position. 1 2 "N") (move-or-rotate "R" (Position. 1 2 "W")))))
+    (is (= (Position. 1 2 "N") (move-or-rotate (Position. 1 2 "W") "R"))))
   (testing "it should thrown an exception when the movement is invalid"
-    (is (thrown? RuntimeException (move-or-rotate "F" (Position. 1 2 "E"))))))
+    (is (thrown? RuntimeException (move-or-rotate (Position. 1 2 "E") "F")))))
+
+(deftest rover-run-service-test
+  (testing "given a list of commands and a initial position it should move the rover the correct position"
+    (is (= (Position. 1 3 "N") (rover-service (Position. 1 2 "N") (list "L" "M" "L" "M" "L" "M" "L" "M" "M")))))
+  (testing "given a list of commands and a initial position it should move the rover the correct position 2"
+    (is (= (Position. 5 1 "E") (rover-service (Position. 3 3 "E") (list "M" "M" "R" "M" "M" "R" "M" "R" "R" "M"))))))

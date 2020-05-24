@@ -31,9 +31,12 @@
   (let [new-compass ((keyword (:compass position)) {:N "E" :S "W" :E "S" :W "N"})]
     (Position. (:x position) (:y position) new-compass)))
 
-(defn move-or-rotate [command position]
+(defn move-or-rotate [position command]
   (case command
     "M" (move position)
     "L" (rotate-left position)
     "R" (rotate-right position)
     (throw (RuntimeException. (format "Command %s is invalid." command)))))
+
+(defn rover-service [position commands]
+  (reduce #(move-or-rotate %1 %2) position commands))
