@@ -60,12 +60,8 @@
 
 (defn -main [& args]
   (try
-    (let [plateau-position-and-commands (map #(parse-line %) args)
-          plateau (first plateau-position-and-commands)
-          positions-and-commands (rest plateau-position-and-commands)]
-
+    (let [[plateau positions-and-commands] (map #(parse-line %) args)]
       (for [[position commands] (partition 2 positions-and-commands)]
         (println (rover-service position commands plateau)))
       )
-
     (catch Exception e (str "Caught exception: " (.getMessage e)))))
