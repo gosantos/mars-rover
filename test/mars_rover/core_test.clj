@@ -70,11 +70,7 @@
     (is (thrown? RuntimeException (parse-line "DHUSAHUDSAHUDHUAS")))))
 
 (deftest main-test
-  (testing "it should parse a plateau"
-    (is (= [(Plateau. 5 5)
-            (Position. 1 2 "N")
-            ["L" "M" "L" "M" "L" "M" "L" "M" "M"]
-            (Position. 3 3 "E")
-            ["M" "M" "R" "M" "M" "R" "M" "R" "R" "M"]]
-           (-main "5 5" "1 2 N" "LMLMLMLMM" "3 3 E" "MMRMMRMRRM"))))
+  (testing "e2e test"
+    (= [#mars_rover.core.Position{:x 1, :y 2, :compass "N"} #mars_rover.core.Position{:x 3, :y 3, :compass "E"}]
+       (with-out-str (-main "5 5" "1 2 N" "LMLMLMLMM" "3 3 E" "MMRMMRMRRM"))))
   )
