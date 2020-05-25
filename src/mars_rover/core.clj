@@ -1,4 +1,5 @@
 (ns mars-rover.core
+  (:use clojure.pprint)
   (:require [clojure.string :as str]))
 
 
@@ -50,10 +51,15 @@
     (Position. (Integer. x) (Integer. y) compass)))
 
 ;; external
-
 (defn parse-line [line]
   (cond
-    (re-matches #"^\d \d$" line) (plateau-converter (str/split line #" "))
-    (re-matches #"^\d \d [N|S|E|W]$" line) (position-converter (str/split line #" "))
+    (re-matches #"^\d\s\d$" line) (plateau-converter (str/split line #" "))
+    (re-matches #"^\d\s\d\s[N|S|E|W]$" line) (position-converter (str/split line #" "))
     (re-matches #"^[L|R|M]+$" line) (str/split line #"")
     :else (throw (RuntimeException. (format "Unrecognized expression: %s." line)))))
+
+
+(defn -main [& args]
+  (try
+    (map #(parse-line %) args)
+    (catch Exception e (str "Caught exception: " (.getMessage e)))))

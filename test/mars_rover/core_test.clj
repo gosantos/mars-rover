@@ -1,6 +1,7 @@
 (ns mars-rover.core-test
   (:require [clojure.test :refer :all]
-            [mars-rover.core :refer :all])
+            [mars-rover.core :refer :all]
+            [clojure.string :as str])
   (:import (mars_rover.core Position Plateau)))
 
 
@@ -64,3 +65,13 @@
     (is (= ["L" "M" "L" "M"] (parse-line "LMLM"))))
   (testing "it should raise an exception when the format is wrong"
     (is (thrown? RuntimeException (parse-line "DHUSAHUDSAHUDHUAS")))))
+
+(deftest main-test
+  (testing "it should parse a plateau"
+    (is (= [(Plateau. 5 5)
+            (Position. 1 2 "N")
+            ["L" "M" "L" "M" "L" "M" "L" "M" "M"]
+            (Position. 3 3 "E")
+            ["M" "M" "R" "M" "M" "R" "M" "R" "R" "M"]]
+           (-main "5 5" "1 2 N" "LMLMLMLMM" "3 3 E" "MMRMMRMRRM"))))
+  )
