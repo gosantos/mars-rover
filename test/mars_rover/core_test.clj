@@ -57,10 +57,10 @@
 
 (deftest parser-test
   (testing "it should parse a plateau"
-    (is (= (Plateau. 5 5) (parse "5 5"))))
+    (is (= (Plateau. 5 5) (parse-line "5 5"))))
   (testing "it should parse a position"
-    (is (= (Position. 1 2 "N") (parse "1 2 N"))))
+    (is (= (Position. 1 2 "N") (parse-line "1 2 N"))))
   (testing "it should parse commands"
-    (is (= ["L" "M" "L" "M"] (parse "LMLM"))))
+    (is (= ["L" "M" "L" "M"] (parse-line "LMLM"))))
   (testing "it should raise an exception when the format is wrong"
-    (is (thrown? RuntimeException (parse "DHUSAHUDSAHUDHUAS")))))
+    (is (thrown? RuntimeException (parse-line "DHUSAHUDSAHUDHUAS")))))

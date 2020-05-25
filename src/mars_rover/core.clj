@@ -50,7 +50,8 @@
     (Position. (Integer. x) (Integer. y) compass)))
 
 ;; external
-(defn parse [line]
+
+(defn parse-line [line]
   (cond
     (re-matches #"^\d \d$" line) (plateau-converter (str/split line #" "))
     (re-matches #"^\d \d [N|S|E|W]$" line) (position-converter (str/split line #" "))
